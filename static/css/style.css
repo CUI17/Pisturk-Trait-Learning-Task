@@ -112,13 +112,12 @@ div.show-stimuli {
 /*stimulus property*/
 #stim1 {
   display: block;
-
   /*float: left;
   margin: 25px;
   */
      /*postion*/
   position: fixed;
-  top: 50%;
+  top: 40%;
   left: 20%;
   /* bring your own prefixes */
   transform: translate(-20%, -50%);
@@ -126,8 +125,6 @@ div.show-stimuli {
 }
 
 #stim2 {
-
-
   display: block;
   /*dfloat: right;
   margin: 25px;
@@ -135,20 +132,60 @@ div.show-stimuli {
 
   /*postion*/
   position: fixed;
-  top: 50%;
+  top: 40%;
   left: 80%;
   /* bring your own prefixes */
   transform: translate(-80%, -50%);
-
-
 }
 
 /*reward text property*/
-#stim1_reward_status{
+#reward_prompt{
   font-family:Arial, Helvetica, sans-serif;
-  font-size: 40pt;
-  font: bolder;
-  text-align: center;
+  font-size: 30pt;
+  font: lighter;
+  text-align: left;
+
+  /*float: left;
+  padding-left: 23%;
+  padding-bottom: 15px;*/
+
+  display: block;
+  /*float: left;
+  margin: 25px;
+  */
+     /*postion*/
+  position: fixed;
+  top: 70%;
+  left: 38%;
+  /* bring your own prefixes */
+  transform: translate(-28%, -80%);
+  color: white;
+}
+
+#reward_result{
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 30pt;
+  font: lighter;
+  text-align: right;
+  display: block;
+  /*float: right;
+  padding-right: 23%;
+  padding-bottom: 15px;*/
+  position: fixed;
+  top: 70%;
+  left: 62%;
+  /* bring your own prefixes */
+  transform: translate(-72%, -80%);
+  color: white;
+  
+}
+
+#pool_prompt{
+    display: block;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 30pt;
+  font: lighter;
+  text-align: left;
 
   /*float: left;
   padding-left: 23%;
@@ -161,20 +198,18 @@ div.show-stimuli {
      /*postion*/
   position: fixed;
   top: 80%;
-  left: 28%;
+  left: 38%;
   /* bring your own prefixes */
   transform: translate(-28%, -80%);
-
-
-  color: red;
+  color: white;
 
 }
 
-#stim2_reward_status{
+#pool_result{
   font-family:Arial, Helvetica, sans-serif;
-  font-size: 40pt;
-  font: bolder;
-  text-align: center;
+  font-size: 30pt;
+  font: lighter;
+  text-align: right;
   display: block;
   /*float: right;
   padding-right: 23%;
@@ -182,14 +217,15 @@ div.show-stimuli {
 
   position: fixed;
   top: 80%;
-  left: 72%;
+  left: 62%;
   /* bring your own prefixes */
   transform: translate(-72%, -80%);
 
-
-  color: red;
+  color: white;
   
 }
+
+
 /*hideen, for recording only*/
 #stim1_name {
   opacity: 0;
@@ -224,7 +260,7 @@ div.show-stimuli {
 
   /*postion*/
   position: fixed;
-  top: 50%;
+  top: 40%;
   left: 50%;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
@@ -261,12 +297,27 @@ div.show-stimuli {
   font: bolder;
    /*postion*/
   position: fixed;
-  top: 80%;
+  top: 70%;
   left: 50%;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
-
 }
+
+#pool{
+  display: block;
+  /*color, size, font*/
+  font-size: 30pt;
+  color: white;
+  font: bolder;
+   /*postion*/
+  position: fixed;
+  top: 70%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+
 
 .question {
   margin-bottom: 30px;

@@ -31,7 +31,7 @@ var pages = [
 
 psiTurk.preloadPages(pages);
 
-var traning_instruction_pages = [ // add as a list as many pages as you like
+var training_instruction_pages = [ // add as a list as many pages as you like
 
 	"instructions/instruct-ready.html"
 ];
@@ -69,8 +69,8 @@ var training_phase = function () {
     var testing_trial_num = 12;
 
 
-    //var good_choice_or_not;
-    //var correct_choice;
+    var good_choice_or_not;
+    var correct_choice;
 
     var left_target;
     var right_target;
@@ -286,8 +286,7 @@ var training_phase = function () {
 
             return psiTurk.doInstructions(testing_instruction_pages,
                 function () {
-                    currentview = new testing_phase();
-                    console.log('ENTER TESTING PHASE ...');
+                    currentview = new testing_phase();                   
                 }
             );
         }else {
@@ -388,44 +387,17 @@ var training_phase = function () {
 
         if (!listening) return;
 
-        if (!warning) {
-        //get key code;
         var keyCode = e.keyCode,
             response;
 
-        switch (keyCode) {
-            // press [F]
-            case 74:
-                //target on the left
-                response = stim2_name;
-                document.getElementById('stim2').style.border = "5px solid yellow";
-                response_received = true;
-                break;
-
-            // press [J]
-            case 70:
-                //target on the RIGHT
-                response = stim1_name;
-                document.getElementById('stim1').style.border = "5px solid yellow";
-                response_received = true;
-                break;
-
-            default:
-                response = "";
-                break;
-        }
-      }
-
-
-        if (response.length > 0 && !warning) {
-
-            var keyCode = e.keyCode,
-                response;
+        if (!warning) {
+            //get key code;   
 
             switch (keyCode) {
                 // press [F]
                 case 74:
                     //target on the left
+
                     response = stim2_name;
                     document.getElementById('stim2').style.border = "5px solid yellow";
                     document.getElementById('stim1').style.opacity = 0.3;
@@ -445,6 +417,39 @@ var training_phase = function () {
                     response = "";
                     break;
             }
+        } else {
+            response = 'NaN';
+        }
+
+
+        if (response.length > 0 && !warning) {
+
+            //var keyCode = e.keyCode,
+            //    response;
+
+            //switch (keyCode) {
+            //    // press [F]
+            //    case 74:
+            //        //target on the left
+            //        response = stim2_name;
+            //        document.getElementById('stim2').style.border = "5px solid yellow";
+            //        document.getElementById('stim1').style.opacity = 0.3;
+            //        response_received = true;
+            //        break;
+
+            //    // press [J]
+            //    case 70:
+            //        //target on the RIGHT
+            //        response = stim1_name;
+            //        document.getElementById('stim1').style.border = "5px solid yellow";
+            //        document.getElementById('stim2').style.opacity = 0.3;
+            //        response_received = true;
+            //        break;
+
+            //    default:
+            //        response = "";
+            //        break;
+            //}
 
 
             listening = false;
@@ -463,23 +468,14 @@ var training_phase = function () {
 
             setTimeout(function () {
 
-            d3.select('#reward_prompt').html("you get ");
+            d3.select('#reward_prompt').html("you get:");
             d3.select('#reward_result').html(reward_result);
 
-            d3.select('#pool_prompt').html("out of ");
+            d3.select('#pool_prompt').html("out of:");
             d3.select('#pool_result').html(pool_result);
 
             }, result_display_delay);
 
-
-            //if (response === correct_choice) {
-            //    good_choice_or_not = 'Good Choice';
-            //}
-            //else {
-            //    good_choice_or_not = 'Bad Choice';
-            //};
-
-            //console.log(correct_choice);
 
             var hit = response;
             var rt = new Date().getTime() - stim_on;
@@ -494,11 +490,6 @@ var training_phase = function () {
                 'response': hit,
                 'left_target': left_target,
                 'right_target': right_target,
-                //'Good choice?': good_choice_or_not,
-                'testing_left_good_choice': left_good_choice,
-                'testing_right_good_choice': right_good_choice,
-                'total_left_good_choice': total_left_good_chocie,
-                'total_right_good_choice': total_right_good_choice,
                 'left_pic_name': stim1,
                 'right_pic_name': stim2
 
@@ -508,9 +499,7 @@ var training_phase = function () {
             console.log(reward_result, pool_result, gen_result, 'block:', block_id, ';', 'trial:', testing_trial_count, '; ', 'trial inside block:', ';',
                 testing_trial_inside_block, 'reaction_time:', rt, '; ', 'response:', hit, '; ',
                  'left_target:', left_target, ';',
-                'right_target:', right_target, ';', 'testing_left_good_choice', left_good_choice, ';',
-                'testing_right_good_choice:', right_good_choice, ';', 'total_left_good_choice:', total_left_good_chocie, ';',
-                'total_right_good_choice:', total_right_good_choice, ';', 'left_pic_name:', stim1, ';', 'right_pic_name:', stim2);
+                'right_target:', right_target, ';', 'left_pic_name:', stim1, ';', 'right_pic_name:', stim2);
 
 
 
@@ -528,13 +517,6 @@ var training_phase = function () {
             // cancel existing timer if exist;
             clearTimeout(timer);
         }
-
-    };
-
-    // finsh the training pahse;
-    var finish = function () {
-        $("body").unbind("keydown", response_handler); // Unbind keys
-        currentview = new Questionnaire();
 
     };
 
@@ -644,11 +626,7 @@ var training_phase = function () {
                 'response': response,
                 'left_target': left_target,
                 'right_target': right_target,
-                //'Good choice?': good_choice_or_not,
-                'testing_left_good_choice': left_good_choice,
-                'testing_right_good_choice': right_good_choice,
-                'total_left_good_choice': total_left_good_chocie,
-                'total_right_good_choice': total_right_good_choice,
+ 
                 'left_pic_name': stim1,
                 'right_pic_name': stim2
 
@@ -658,9 +636,7 @@ var training_phase = function () {
             console.log('block:', ';', block_id, 'trial:', testing_trial_count, '; ', 'trial inside block:', ';',
                 testing_trial_inside_block, 'reaction_time:', rt, '; ', 'response:', response, '; ',
                  'left_target:', left_target, ';',
-                'right_target:', right_target, ';', 'testing_left_good_choice', left_good_choice, ';',
-                'testing_right_good_choice:', right_good_choice, ';', 'total_left_good_choice:', total_left_good_chocie, ';',
-                'total_right_good_choice:', total_right_good_choice, ';', 'left_pic_name:', stim1, ';', 'right_pic_name:', stim2);
+                'right_target:', right_target, ';', 'left_pic_name:', stim1, ';', 'right_pic_name:', stim2);
 
             setTimeout(function () {
                 remove_stim();
@@ -709,15 +685,13 @@ var training_phase = function () {
 *   TESTING PHASE   *
 ****************************************************************************************************************************************/
 var testing_phase = function () {
-
+    console.log('ENTER TESTING PHASE ...');
     var testing_pool = [];
 
     var stim_on, // time stimulus is presented
         listening = false;
     var stimFolder = "/static/images/"
 
-    var reward_result;
-    var gen_result;
     var pool_result;
 
     var fixation_time = 1000;
@@ -733,7 +707,7 @@ var testing_phase = function () {
     //start to count the trial
     var testing_trial_count = 0;
 
-    var show_feedback_time = 3000;
+    var show_feedback_time = 300;
 
     var max_reaction_time = 3000;
 
@@ -839,6 +813,7 @@ var testing_phase = function () {
         for (i = 0; i < num_5; i++) {
             testing_pool = testing_pool.concat(Math.round(original_pool * 1.5));
         }
+        testing_pool = _.shuffle(testing_pool);
         return testing_pool;
     }
     get_pool_number(12,12,24,12,12,10,100, 1);
@@ -938,14 +913,7 @@ var testing_phase = function () {
 
     var next = function () {
         if (trial_container.length === 0) {
-            //    finish();
-            //}
-
-            return psiTurk.doInstructions(testing_instruction_pages,
-                function () {
                     finish();
-                }
-            );
         } else {
             stim_array = trial_container.shift();
 
@@ -959,63 +927,22 @@ var testing_phase = function () {
             stim1_prob = stim_array[2];
             stim2_prob = stim_array[5];
 
-            pool_status = testing_pool.shift();
+            pool_result = testing_pool.shift();
 
 
-            if (stim1_prob > stim2_prob) {
-                correct_choice = stim1_name;
-                left_good_choice = 1, right_good_choice = 0;
-                total_left_good_chocie++;
-            } else {
-                corrrect_choice = stim2_name;
-                left_good_choice = 0, right_good_choice = 1;
-                total_right_good_choice++;
-            };
+            //if (stim1_prob > stim2_prob) {
+            //    correct_choice = stim1_name;
+            //    left_good_choice = 1, right_good_choice = 0;
+            //    total_left_good_chocie++;
+            //} else {
+            //    corrrect_choice = stim2_name;
+            //    left_good_choice = 0, right_good_choice = 1;
+            //    total_right_good_choice++;
+            //};
 
-            d3.select('#pool').html(pool_status);
 
-            //switch (stim1_name) {
-            //    case "A":
-            //        stim1_reward = reward_A.shift();
-            //        stim1_gen = gen_A.shift();
-            //        stim1_pool = pool_A.shift();
-            //        break;
-            //    case "B":
-            //        stim1_reward = reward_B.shift();
-            //        stim1_gen = gen_B.shift();
-            //        stim1_pool = pool_B.shift();
-            //        break;
-            //    case "C":
-            //        stim1_reward = reward_C.shift();
-            //        stim1_gen = gen_C.shift();
-            //        stim1_pool = pool_C.shift();
-            //        break;
-            //    case "D":
-            //        stim1_reward = reward_D.shift();
-            //        stim1_gen = gen_D.shift();
-            //        stim1_pool = pool_D.shift();
-            //        break;
-            //}
-
-            //switch (stim2_name) {
-            //    case "A":
-            //        stim2_reward = reward_A.shift();
-            //        stim2_gen = gen_A.shift();
-            //        stim2_pool = pool_A.shift();
-            //    case "B":
-            //        stim2_reward = reward_B.shift();
-            //        stim2_gen = gen_B.shift();
-            //        stim2_pool = pool_B.shift();
-            //    case "C":
-            //        stim2_reward = reward_C.shift();
-            //        stim2_gen = gen_C.shift();
-            //        stim2_pool = pool_C.shift();
-            //    case "D":
-            //        stim2_reward = reward_D.shift();
-            //        stim2_gen = gen_D.shift();
-            //        stim2_pool = pool_D.shift();
-            //}
-
+            d3.select('#pool_prompt').html("out of:");
+            d3.select('#pool_result').html(pool_result);
 
             show_stim(stim1, stim2);
 
@@ -1070,6 +997,8 @@ var testing_phase = function () {
                     response = "";
                     break;
             }
+        } else {
+            response = 'NaN';
         }
 
 
@@ -1077,28 +1006,14 @@ var testing_phase = function () {
 
             listening = false;
 
-            //if (response == stim1_name) {
-
-            //    //reward_result = stim1_reward;
-            //    //pool_result = stim1_pool;
-
-            //} else {
-            //    //reward_result = stim2_reward;
-            //    //pool_result = stim2_pool;
+            //if (response === correct_choice) {
+            //    good_choice_or_not = 'Good Choice';
             //}
+            //else {
+            //    good_choice_or_not = 'Bad Choice';
+            //};
 
-           
-
-
-
-            if (response === correct_choice) {
-                good_choice_or_not = 'Good Choice';
-            }
-            else {
-                good_choice_or_not = 'Bad Choice';
-            };
-
-            console.log(correct_choice);
+            //console.log(correct_choice);
 
             var hit = response;
             var rt = new Date().getTime() - stim_on;
@@ -1113,23 +1028,17 @@ var testing_phase = function () {
                 'response': hit,
                 'left_target': left_target,
                 'right_target': right_target,
-                'Good choice?': good_choice_or_not,
-                'testing_left_good_choice': left_good_choice,
-                'testing_right_good_choice': right_good_choice,
-                'total_left_good_choice': total_left_good_chocie,
-                'total_right_good_choice': total_right_good_choice,
                 'left_pic_name': stim1,
                 'right_pic_name': stim2
 
             });
 
 
-            console.log(reward_result, pool_result, 'block:', block_id, ';', 'trial:', testing_trial_count, '; ', 'trial inside block:', ';',
+            console.log(pool_result, 'block:', block_id, ';', 'trial:', testing_trial_count, '; ', 'trial inside block:', ';',
                 testing_trial_inside_block, 'reaction_time:', rt, '; ', 'response:', hit, '; ',
-                'good choice?', good_choice_or_not, ';', 'left_target:', left_target, ';',
-                'right_target:', right_target, ';', 'testing_left_good_choice', left_good_choice, ';',
-                'testing_right_good_choice:', right_good_choice, ';', 'total_left_good_choice:', total_left_good_chocie, ';',
-                'total_right_good_choice:', total_right_good_choice, ';', 'left_pic_name:', stim1, ';', 'right_pic_name:', stim2);
+                 'left_target:', left_target, ';',
+                'right_target:', right_target, ';', 
+              'left_pic_name:', stim1, ';', 'right_pic_name:', stim2);
 
 
 
@@ -1153,8 +1062,10 @@ var testing_phase = function () {
     // finsh the training pahse;
     var finish = function () {
         $("body").unbind("keydown", response_handler); // Unbind keys
-        currentview = new Questionnaire();
-
+        //currentview = new Questionnaire();
+                  psiTurk.computeBonus('compute_bonus', function() { 
+                	psiTurk.completeHIT(); // when finished saving compute bonus, the quit
+                }); 
     };
 
 
@@ -1194,9 +1105,29 @@ var testing_phase = function () {
                 block_id = 6;
                 testing_trial_inside_block = testing_trial_count - 30;
                 break;
-            default:
-                block_id = NaN;
-                testing_trial_inside_block = NaN;
+            case 6:
+                block_id = 7;
+                testing_trial_inside_block = testing_trial_count - 36;
+                break;
+            case 7:
+                block_id = 8;
+                testing_trial_inside_block = testing_trial_count - 42;
+                break;
+            case 8:
+                block_id = 9;
+                testing_trial_inside_block = testing_trial_count - 48;
+                break;
+            case 9:
+                block_id = 10;
+                testing_trial_inside_block = testing_trial_count - 54;
+                break;
+            case 10:
+                block_id = 11;
+                testing_trial_inside_block = testing_trial_count - 60;
+                break;
+            case 11:
+                block_id = 12;
+                testing_trial_inside_block = testing_trial_count - 66;
                 break;
         };
 
@@ -1235,7 +1166,7 @@ var testing_phase = function () {
             var good_choice_or_not = 'NaN';
 
             psiTurk.recordTrialData({
-                'phase': "Testing",
+                'phase': "Training",
                 'block': block_id,
                 'trial': testing_trial_count,
                 'trial inside block': testing_trial_inside_block,
@@ -1243,11 +1174,7 @@ var testing_phase = function () {
                 'response': response,
                 'left_target': left_target,
                 'right_target': right_target,
-                'Good choice?': good_choice_or_not,
-                'testing_left_good_choice': left_good_choice,
-                'testing_right_good_choice': right_good_choice,
-                'total_left_good_choice': total_left_good_chocie,
-                'total_right_good_choice': total_right_good_choice,
+
                 'left_pic_name': stim1,
                 'right_pic_name': stim2
 
@@ -1256,10 +1183,7 @@ var testing_phase = function () {
 
             console.log('block:', ';', block_id, 'trial:', testing_trial_count, '; ', 'trial inside block:', ';',
                 testing_trial_inside_block, 'reaction_time:', rt, '; ', 'response:', response, '; ',
-                'good choice?', good_choice_or_not, ';', 'left_target:', left_target, ';',
-                'right_target:', right_target, ';', 'testing_left_good_choice', left_good_choice, ';',
-                'testing_right_good_choice:', right_good_choice, ';', 'total_left_good_choice:', total_left_good_chocie, ';',
-                'total_right_good_choice:', total_right_good_choice, ';', 'left_pic_name:', stim1, ';', 'right_pic_name:', stim2);
+              'left_pic_name:', stim1, ';', 'right_pic_name:', stim2);
 
             setTimeout(function () {
                 remove_stim();
@@ -1283,8 +1207,8 @@ var testing_phase = function () {
         document.getElementById('stim2').style.opacity = 1;
 
         d3.select('#warning').html('');
-        d3.select('#pool').html('');
-
+        d3.select('#pool_result').html('');
+        d3.select('#pool_prompt').html('');
     };
 
 
@@ -1369,7 +1293,7 @@ var currentview;
  ******************/
 $(window).load( function(){
     psiTurk.doInstructions(
-        traning_instruction_pages, // a list of pages you want to display in sequence
+        training_instruction_pages, // a list of pages you want to display in sequence
         function () { currentview = new training_phase(); } // what you want to do when you are done with instructions
     );
 });

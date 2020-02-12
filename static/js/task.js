@@ -775,27 +775,18 @@ var testing_phase = function () {
     //    return u * c;
     //}
 
-    function getNumberInNormalDistribution(min, max, skew) {
-        let u = 0, v = 0;
-        while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)
-        while (v === 0) v = Math.random();
-        let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
-
-        num = num / 10.0 + 0.5; // Translate to 0 -> 1
-        if (num > 1 || num < 0) num = randn_bm(min, max, skew); // resample between 0 and 1 if out of range
-        num = Math.pow(num, skew); // Skew
-        num *= max - min; // Stretch to fill range
-        num += min; // offset to min
-        return num;
-    }
 
   
-    function get_pool_number(num_1, num_2, num_3, num_4, num_5, min, max, skew) {
+    function get_pool_number(num_1, num_2, num_3, num_4, num_5) {
 
         var original_pool;
 
 
-        original_pool = Math.round(getNumberInNormalDistribution(min, max, skew));
+        original_pool = Math.random()*100;
+
+        if (original_pool < 10) {
+            original_pool = 10;
+        }
 
         //original_pool = Math.round(Math.random(pool_mean, pool_sd));
         for (i = 0; i < num_1; i++) {
@@ -816,27 +807,10 @@ var testing_phase = function () {
         testing_pool = _.shuffle(testing_pool);
         return testing_pool;
     }
-    get_pool_number(12,12,24,12,12,10,100, 1);
+    get_pool_number(12,12,24,12,12);
 
 
-   
-    //var pool_.67 = [].concat(reward(20, 10, 2));
-    //var reward_B = [].concat(reward(20, 10, 2));
-    //var reward_C = [].concat(reward(40, 10, 2));
-    //var reward_D = [].concat(reward(40, 10, 2));
-    //var gen_A = [].concat(generosity(0.2, 0.1, 0.01));
-    //var gen_B = [].concat(generosity(0.4, 0.1, 0.01));
-    //var gen_C = [].concat(generosity(0.2, 0.1, 0.01));
-    //var gen_D = [].concat(generosity(0.4, 0.1, 0.01));
-    //var pool_A = [].concat(pool(reward_A, gen_A));
-    //var pool_B = [].concat(pool(reward_B, gen_B));
-    //var pool_C = [].concat(pool(reward_C, gen_C));
-    //var pool_D = [].concat(pool(reward_D, gen_D));
-
-    //console.log(reward_A);
-    //console.log(gen_A);
-    //console.log(pool_A);
-
+  
 
 
     var testing_pairs = [
@@ -1291,19 +1265,19 @@ var currentview;
 /*******************
  * Run Task
  ******************/
-$(window).load( function(){
-    psiTurk.doInstructions(
-        training_instruction_pages, // a list of pages you want to display in sequence
-        function () { currentview = new training_phase(); } // what you want to do when you are done with instructions
-    );
-});
+//$(window).load( function(){
+//    psiTurk.doInstructions(
+//        training_instruction_pages, // a list of pages you want to display in sequence
+//        function () { currentview = new training_phase(); } // what you want to do when you are done with instructions
+//    );
+//});
 
 /***for testing only.
  * If you want to skip the training phase and test how the testing phase works, comment out the lines above and uncomment the lines below
  ***/
-//$(window).load(function () {
-//    psiTurk.doInstructions(
-//        testing_instruction_pages, // a list of pages you want to display in sequence
-//        function () { currentview = new testing_phase(); } // what you want to do when you are done with instructions
-//    );
-//});
+$(window).load(function () {
+    psiTurk.doInstructions(
+        testing_instruction_pages, // a list of pages you want to display in sequence
+        function () { currentview = new testing_phase(); } // what you want to do when you are done with instructions
+    );
+});

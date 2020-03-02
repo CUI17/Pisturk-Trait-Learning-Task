@@ -22,8 +22,16 @@ var mycounterbalance = counterbalance;  // they tell you which condition you hav
 
 // All pages to be loaded
 var pages = [
-
-	"instructions/instruct-ready.html",
+    "instructions/instruct-1.html",
+    "instructions/instruct-2.html",
+    "instructions/instruct-3.html",
+    "instructions/instruct-4.html",
+    "instructions/instruct-5-s.html",
+    "instructions/instruct-5-c.html",
+    "instructions/instruct-ready.html",
+    "instructions/instruct-6.html",
+    "instructions/instruct-7.html",
+    "instructions/instruct-8.html",
 	"stage.html",
     "postquestionnaire.html",
     "instructions/ansInstruct-ready.html"
@@ -32,11 +40,35 @@ var pages = [
 psiTurk.preloadPages(pages);
 
 var training_instruction_pages = [ // add as a list as many pages as you like
-
+    "instructions/instruct-1.html",
+    "instructions/instruct-2.html",
+    "instructions/instruct-3.html",
+    "instructions/instruct-4.html",
+    "instructions/instruct-5-s.html",
+    //"instructions/instruct-5-c.html",
+    "instructions/instruct-6.html",
+    "instructions/instruct-7.html",
+    "instructions/instruct-8.html",
 	"instructions/instruct-ready.html"
 ];
 
+var training_instruction_pages_control = [ // add as a list as many pages as you like
+    "instructions/instruct-1.html",
+    "instructions/instruct-2.html",
+    "instructions/instruct-3.html",
+    "instructions/instruct-4.html",
+    //"instructions/instruct-5-s.html",
+    "instructions/instruct-5-c.html",
+    "instructions/instruct-6.html",
+    "instructions/instruct-7.html",
+    "instructions/instruct-8.html",
+    "instructions/instruct-ready.html"
+];
+
+
 var testing_instruction_pages = [// add as a list as many pages as you like
+
+   
     "instructions/ansInstruct-ready.html"
 ];
 
@@ -273,9 +305,40 @@ var training_phase = function () {
 
         d3.select('#warning').html('');
 
+        //setTimeout(function () {
+        //    d3.select("#fixation_cross").html("+");
+        //    next();
+        //}, fixation_time);
+
         setTimeout(function () {
-            d3.select("#fixation_cross").html("+");
-            next();
+            var timeleft = 15;
+
+            if (testing_trial_count == 36) {
+                var pause_timer = setInterval(function () {
+                    console.log('break session');
+                    d3.select("#fixation_cross").html("");
+                    d3.select("#pause_instruction").html('<p>You have finished a round of this task.</p><p>You will now take a break for 10 seconds.</p> <p>A 3 - second countdown will signal the start of the next round.</p>');
+                    timeleft -= 1;
+                    if (timeleft < 5) {
+                        //d3.select("#fixation_cross").html("");
+                        d3.select("#countdown").html(timeleft);
+
+                    };
+                    if (timeleft <= 0) {
+                        clearInterval(pause_timer);
+                        d3.select("#countdown").html('');
+                        d3.select("#pause_instruction").html('');
+
+                        d3.select("#fixation_cross").html("+");
+                        next();
+                    }
+                }, 1000);
+
+            } else {
+                //d3.select("#pause_instruction").html('');
+                d3.select("#fixation_cross").html("+");
+                next();
+            }
         }, fixation_time);
     };
 
@@ -284,7 +347,7 @@ var training_phase = function () {
             //    finish();
             //}
 
-            return psiTurk.doInstructions(testing_instruction_pages,
+            return psiTurk.doInstructions(training_instruction_pages,
                 function () {
                     currentview = new testing_phase();                   
                 }
@@ -1265,19 +1328,19 @@ var currentview;
 /*******************
  * Run Task
  ******************/
-//$(window).load( function(){
-//    psiTurk.doInstructions(
-//        training_instruction_pages, // a list of pages you want to display in sequence
-//        function () { currentview = new training_phase(); } // what you want to do when you are done with instructions
-//    );
-//});
+$(window).load( function(){
+    psiTurk.doInstructions(
+        training_instruction_pages, // a list of pages you want to display in sequence
+        function () { currentview = new training_phase(); } // what you want to do when you are done with instructions
+    );
+});
 
 /***for testing only.
  * If you want to skip the training phase and test how the testing phase works, comment out the lines above and uncomment the lines below
  ***/
-$(window).load(function () {
-    psiTurk.doInstructions(
-        testing_instruction_pages, // a list of pages you want to display in sequence
-        function () { currentview = new testing_phase(); } // what you want to do when you are done with instructions
-    );
-});
+//$(window).load(function () {
+//    psiTurk.doInstructions(
+//        testing_instruction_pages, // a list of pages you want to display in sequence
+//        function () { currentview = new testing_phase(); } // what you want to do when you are done with instructions
+//    );
+//});

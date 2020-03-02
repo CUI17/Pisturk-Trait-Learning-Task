@@ -1,5 +1,5 @@
 # Pisturk-Trait-Learning-Task 
 #### Feature:
-___(´ཀ`」 ∠)___
+___(´ཀ`」 ∠)__
 
 

@@ -1,5 +1,5 @@
 # Pisturk-Trait-Learning-Task 
 #### Feature:
-___(´ཀ`」 ∠)__崔某枯了
+_(´ཀ`」 ∠)_崔某枯了
 
 

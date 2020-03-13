@@ -1,0 +1,105 @@
+<div id="container-instructions">
+	<div class="pairup">
+
+        <!-- This is a comment and functions like a note. Below is the area where you put the instructions. -->
+        <!--If you want to start a new a paragraph, then add <p> before and </p> after the content-->
+        <!--examples are ↓↓↓ Preview in a browser-->
+             
+
+	    <script type="text/javascript">
+
+
+            var show_piarup_time = 9000;
+            decider_1_time = 1300;
+            decider_2_time = 2600;
+            decider_3_time = 4600;
+            decider_4_time = 7500;
+
+            $('#next_lobby').hide().delay(show_piarup_time+600).show(0);
+
+            d3.select("#decider_1").html('');
+            d3.select("#decider_2").html('');
+            d3.select("#decider_3").html('');
+            d3.select("#decider_4").html('');
+ 
+
+            console.log('ojbk')
+
+            timer1 = setInterval(function () {
+                d3.select("#pairup_instruction").html('<p>You will now enter the waiting room.</p> <p>Please wait as we match you with four Decider participants.</p>');
+            }, 300);
+            timer2 = setInterval(function () {
+                d3.select("#pairup_instruction").html('<p>You will now enter the waiting room..</p> <p>Please wait as we match you with four Decider participants..</p>');
+            }, 600);
+            timer3 = setInterval(function () {
+                d3.select("#pairup_instruction").html('<p>You will now enter the waiting room...</p> <p>Please wait as we match you with four Decider participants...</p>');
+            }, 900);
+
+
+                setTimeout(function () {
+                d3.select("#decider_1").html('<p>Decider 1</p>');             
+            }, decider_1_time);
+            setTimeout(function () {
+                d3.select("#decider_2").html('<p>Decider 2</p>');
+            }, decider_2_time);
+            setTimeout(function () {
+                d3.select("#decider_3").html('<p>Decider 3</p>');
+            }, decider_3_time);
+            setTimeout(function () {
+                d3.select("#decider_4").html('<p>Decider 4</p>');
+            }, decider_4_time);
+
+
+            setTimeout(function () {
+                d3.select("#pairup_result").html('<p>Pair-up completed</p>');
+                if (timer1) {
+                    // cancel existing timer if exist;
+                    clearInterval(timer1);
+                }
+                if (timer2) {
+                    // cancel existing timer if exist;
+                    clearInterval(timer2);
+                }
+                if (timer3) {
+                    // cancel existing timer if exist;
+                    clearInterval(timer3);
+                }
+            }, show_piarup_time);
+
+            //setTimeout(function () {
+            //    <button type="button" id="next" value="next" class="btn btn-primary btn-lg continue">
+            //        Next <span class="glyphicon glyphicon-arrow-right"></span>
+            //    </button>
+            //}, 7000);
+
+
+
+	    </script>
+
+	</div>
+
+	
+
+
+     <!--This is the layout settings of the website and nomrally we dont't have to change this -->
+        <div class="instructionsnav">
+
+             <div id="pairup_instruction"></div>
+            	<!-- no previous button on first screen -->
+            
+
+             <div id="decider_1"></div>
+             <div id="decider_2"></div>
+             <div id="decider_3"></div>
+             <div id="decider_4"></div>
+
+            <div id="pairup_result"></div>
+
+                <div class="col-xs-4">
+                <button type="button" id="next_lobby" value="next" class="btn btn-primary btn-lg continue">
+                Comfirm
+                </button>
+                </div>
+
+            </div>
+    </div>

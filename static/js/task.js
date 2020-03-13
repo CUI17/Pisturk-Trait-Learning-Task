@@ -1,18 +1,20 @@
-/********************
+/********************************************************************************
 * Author: Lee Qianqian Cui
-* aka 东海艺术家 崔某 
+* aka 东海当代艺术家 崔某 
 * Email: qc697@nyu.edu
 * Website: https://qianqiancui.github.io/
 * Trait Learning Task
 * New York University
 * Winter 2020
 * Evolved from Psiturk setup-example (the stroop test);
-********************/
+********************************************************************************/
+
 /*
  * Requires:
  *     psiturk.js
  *     utils.js
  */
+
 // Initalize psiturk object, do not delete
 var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 
@@ -22,8 +24,14 @@ var mycounterbalance = counterbalance;  // they tell you which condition you hav
 
 // All pages to be loaded
 var pages = [
+
     "instructions/instruct-1.html",
     "instructions/instruct-2.html",
+
+    "instructions/lobby.html",
+    "instructions/lobby-1.html",
+    "instructions/lobby-3.html",
+
     "instructions/instruct-3.html",
     "instructions/instruct-4.html",
     "instructions/instruct-5-s.html",
@@ -41,7 +49,13 @@ psiTurk.preloadPages(pages);
 
 var training_instruction_pages = [ // add as a list as many pages as you like
     "instructions/instruct-1.html",
+
+
     "instructions/instruct-2.html",
+    "instructions/lobby.html",
+    "instructions/lobby-1.html",
+    "instructions/lobby-3.html",
+
     "instructions/instruct-3.html",
     "instructions/instruct-4.html",
     "instructions/instruct-5-s.html",
@@ -54,7 +68,14 @@ var training_instruction_pages = [ // add as a list as many pages as you like
 
 var training_instruction_pages_control = [ // add as a list as many pages as you like
     "instructions/instruct-1.html",
+
+
     "instructions/instruct-2.html",
+
+    "instructions/lobby.html",
+    "instructions/lobby-1.html",
+    "instructions/lobby-3.html",
+
     "instructions/instruct-3.html",
     "instructions/instruct-4.html",
     //"instructions/instruct-5-s.html",
@@ -67,7 +88,6 @@ var training_instruction_pages_control = [ // add as a list as many pages as you
 
 
 var testing_instruction_pages = [// add as a list as many pages as you like
-
    
     "instructions/ansInstruct-ready.html"
 ];
@@ -99,10 +119,6 @@ var training_phase = function () {
 
     var fixation_time = 1000;
     var testing_trial_num = 12;
-
-
-    var good_choice_or_not;
-    var correct_choice;
 
     var left_target;
     var right_target;
@@ -1331,9 +1347,21 @@ var currentview;
 $(window).load( function(){
     psiTurk.doInstructions(
         training_instruction_pages, // a list of pages you want to display in sequence
+
         function () { currentview = new training_phase(); } // what you want to do when you are done with instructions
     );
 });
+
+
+//$(window).load(function () {
+//    psiTurk.doInstructions(
+//        testing_instruction_pages, // a list of pages you want to display in sequence
+
+//        function () { currentview = new Questionnaire(); } // what you want to do when you are done with instructions
+//    );
+//});
+
+
 
 /***for testing only.
  * If you want to skip the training phase and test how the testing phase works, comment out the lines above and uncomment the lines below
